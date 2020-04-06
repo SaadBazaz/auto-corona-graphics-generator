@@ -1,9 +1,14 @@
 # auto-corona-graphics-generator
 A small editable Python script to automatically get COVID-19 stats and create Photoshop graphics
 
+## Why?
+Python is a great and easy tool used increasingly by scientists and artists for scripting, yet Adobe (creator of Photoshop and Illustrator) have yet to support Python scripting.
+
 ### Credits: 
 - Python Photoshop Scripting: https://martechwithme.com/photoshop-scripting-with-python-on-windows/
 - Pythoshop Python Library: https://pytoshop.readthedocs.io/
+- Amazing resource, but for Javascript, VBScript and Applescript. **But**, I've found that almost EVERYTHING in the Javascript section applies to Python if you capitalize the first letter. E.g. in js, it is fillColor, but in normal COM/Python, it would be FillColor: 
+https://illustrator-scripting-guide.readthedocs.io/
 
 ### Sources:
 - For authentic COVID-19 stats: https://thecoronamap.com/
