@@ -1,16 +1,16 @@
 # auto-corona-graphics-generator
 A small editable Python script to automatically get COVID-19 stats and create Photoshop graphics
 
-###Credits: 
+### Credits: 
 - Python Photoshop Scripting: https://martechwithme.com/photoshop-scripting-with-python-on-windows/
 - Pythoshop Python Library: https://pytoshop.readthedocs.io/
 
-###Sources:
+### Sources:
 - For authentic COVID-19 stats: https://thecoronamap.com/
 - For flags: https://www.countryflags.io/
 - For World Map: http://www.vectorworldmap.com/
 
-###**Requirements**:
+### **Requirements**:
 - Photoshop 2019 or higher
 - Illustrator 2019 or higher
 - Python3
