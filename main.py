@@ -43,47 +43,89 @@ lakesRef.Visible = False
 # newRGBColor.red = 255
 # newRGBColor.green = 255
 # newRGBColor.blue = 0
-color = Dispatch("Illustrator.CMYKColor")
-color.Cyan = 0
-color.Magenta = 99
-color.Yellow = 100
-color.Black = 0
+primaryColor = Dispatch("Illustrator.CMYKColor")
+secondaryColor = Dispatch("Illustrator.CMYKColor")
+
+#Bright Red
+# color.Cyan = 0
+# color.Magenta = 99
+# color.Yellow = 100
+# color.Black = 0
 
 
+#Charcoal
+# color.Cyan = 71
+# color.Magenta = 65
+# color.Yellow = 64
+# color.Black = 69
+
+#Black
+# color.Cyan = 74
+# color.Magenta = 68
+# color.Yellow = 66
+# color.Black = 86
+
+#set Primary Color
+def setPrimaryColor(cyan, magenta, yellow, black):
+    global primaryColor
+    primaryColor.Cyan = cyan
+    primaryColor.Magenta = magenta
+    primaryColor.Yellow = yellow
+    primaryColor.Black = black
+    return primaryColor
+
+#set Secondary Color
+def setSecondaryColor(cyan, magenta, yellow, black):
+    global secondaryColor
+    secondaryColor.Cyan = cyan
+    secondaryColor.Magenta = magenta
+    secondaryColor.Yellow = yellow
+    secondaryColor.Black = black
+    return secondaryColor
 
 
 #Brute Force Find
-try:
-    country = testRef.PathItems["Brazil"]
-    country.FillColor = color
-except:
+def setColorOfCountry (color, countryName, layerRef):
     try:
-        scattered_country = testRef.CompoundPathItems["Brazil"]
+        country = layerRef.PathItems[countryName]
+        country.FillColor = color
+    except:
+        try:
+            scattered_country = layerRef.CompoundPathItems[countryName]
+            for territory in scattered_country.PathItems:
+                territory.FillColor = color
+        except:
+            grouped_country = layerRef.GroupItems[countryName]
+            for territory in grouped_country.PathItems:
+                territory.FillColor = color
+
+##Brute Set All
+def setColorOfAllCountries (color, layerRef):
+    for country in layerRef.PathItems:
+        country.FillColor = color
+
+    for scattered_country in layerRef.CompoundPathItems:
         for territory in scattered_country.PathItems:
             territory.FillColor = color
-    except:
-        grouped_country = testRef.GroupItems["Brazil"]
+
+    for grouped_country in layerRef.GroupItems:
         for territory in grouped_country.PathItems:
             territory.FillColor = color
 
 
-# for country in testRef.PathItems:
-#     country.FillColor = color
+layerRef = docRef.Layers["Background"]
+setColorOfAllCountries(setPrimaryColor(74, 68, 66, 86), layerRef)
 
-# for scattered_country in testRef.CompoundPathItems:
-#     for territory in scattered_country.PathItems:
-#         territory.FillColor = color
-
-# for grouped_country in testRef.GroupItems:
-#     for territory in grouped_country.PathItems:
-#         territory.FillColor = color
+layerRef = docRef.Layers["Countries"]
+setColorOfAllCountries(setPrimaryColor(71, 65, 64, 69), layerRef)
 
 
+countries = ["Germany", "Italy", "Russia", "South Africa"]
+for country in countries:
+    setColorOfCountry(setPrimaryColor(0, 99, 100, 0), country, layerRef)
 
-# malay = testRef.CompoundPathItems["Malaysia"]
-# for i in malay.PathItems:
-#     i.FillColor = color
-
+layerRef = docRef.Layers["Text"]
+setColorOfAllCountries(setPrimaryColor(0, 0, 0, 0), layerRef)
 
 # layer_date = docRef.Layers["Countries"]
 # text_of_layer_date = layer_date.TextFrames.
