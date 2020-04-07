@@ -9,6 +9,7 @@ Python is a great and easy tool used increasingly by scientists and artists for 
 - Pythoshop Python Library: https://pytoshop.readthedocs.io/
 - Amazing resource, but for Javascript, VBScript and Applescript. **But**, I've found that almost EVERYTHING in the Javascript section applies to Python if you capitalize the first letter. E.g. in js, it is fillColor, but in normal COM/Python, it would be FillColor: 
 https://illustrator-scripting-guide.readthedocs.io/
+- Great help for general scripting, like KeySending: https://win32com.goermezer.de/microsoft/windows/controlling-applications-via-sendkeys.html
 
 ### Sources:
 - For authentic COVID-19 stats: https://thecoronamap.com/
