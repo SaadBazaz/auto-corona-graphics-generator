@@ -1,6 +1,25 @@
 # importing the requests library 
 import requests 
-  
+
+# importing the downloading library
+# import urllib (Gives 403 Forbidden Error)
+import urllib.request
+
+
+# handling JSON and tuples
+from pandas.io.json import json_normalize
+import json
+
+
+hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
+       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+       'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
+       'Accept-Encoding': 'none',
+       'Accept-Language': 'en-US,en;q=0.8',
+       'Connection': 'keep-alive'}
+
+
+
 # api-endpoint 
 BASE_URL = "https://api.thecoronamap.com"
 ALL_COUNTRIES = "corona-stats"
@@ -12,45 +31,86 @@ BASE_URL_CF = "https://www.countryflags.io"
 PARAMS_CF = "flat/64.png" 
 
 
+# change or restore defaults of api-endpoints
+def changeApis (base_url = "https://api.thecoronamap.com", 
+all_countries = "corona-stats", all_dates = "get-dates", 
+base_url_cf = "https://www.countryflags.io", params_cf = "flat/64.png" ):
+	global BASE_URL
+	global ALL_COUNTRIES
+	global ALL_DATES
+	global BASE_URL_CF
+	global PARAMS_CF
+	BASE_URL = base_url
+	ALL_COUNTRIES = all_countries
+	ALL_DATES = all_dates
+	BASE_URL_CF = base_url_cf
+	PARAMS_CF = base_url
+	return True
+
+
 # sending get request and saving the response as response object 
-dates_response = requests.get(url = BASE_URL + "/" + ALL_DATES)
-
-# extracting data in json format
-all_dates_data = dates_response.json();
-print("\n\n\n\n\n")
-print ("---------------- Printing All Dates ----------------")
-print (all_dates_data)
-print ("----------------------------------------------------")
-print("\n\n\n\n\n")
-#display top date
-top_date = all_dates_data[len(all_dates_data) - 1]
-print ("The most recent date is", top_date)
+def getAllDates():
+	dates_response = requests.get(url = BASE_URL + "/" + ALL_DATES)
+	# extracting data in json format
+	return dates_response.json()
 
 
+def getTopDate(all_dates_data):
+	#assuming top date is at end of array
+	top_date = all_dates_data[-1]
+	return top_date
 
+def getAllCountryData(date):
+	all_countries_response = requests.get(url = BASE_URL + "/" + ALL_COUNTRIES + "/" + top_date) 	
+	# extracting data in json format 
+	return all_countries_response.json() 
 
+def extractMaxRate(all_countries_data):
+	max = -1
+	name = ""
+	print ("---------------- Printing All Country Names ----------------")
+	for country in all_countries_data:
+		rate = country['dead']/country['confirmed']
+		print (country['country_name'], "->", rate)
+		if  rate > max:
+			max = rate
+			name = country['country_name']
+	print ("------------------------------------------------------------")
 
-all_countries_response = requests.get(url = BASE_URL + "/" + ALL_COUNTRIES + "/" + top_date) 
-  
-# extracting data in json format 
-all_countries_data = all_countries_response.json() 
-print("\n\n\n\n\n")
-print ("---------------- Printing All Country Stats for ", top_date, " ----------------")
-print(all_countries_data)
-print ("-------------------------------------------------------------------------------")
-print("\n\n\n\n\n")
+	print ("\n\n")
+	print ("Max country: ", name, "=>", max)
 
+def getCountryFlag(country):
+	abbrev = getCountryAbbreviation(country)
+	if (abbrev == None):
+		return None
 
-max = -1
-name = ""
-print ("---------------- Printing All Country Names ----------------")
-for country in all_countries_data:
-	rate = country['dead']/country['confirmed']
-	print (country['country_name'], "->", rate)
-	if  rate > max:
-		max = rate
-		name = country['country_name']
-print ("------------------------------------------------------------")
+	url = BASE_URL_CF + "/" + abbrev + "/" + PARAMS_CF
+	print ("Getting data from", url, "...")
+	class AppURLopener(urllib.request.FancyURLopener):
+		version = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.69 Safari/537.36"
+	urllib._urlopener = AppURLopener()
 
-print ("\n\n")
-print ("Max country: ", name, "=>", max)
+	urllib._urlopener.retrieve(url, "./" + abbrev + ".png")
+	# req = urllib2.Request(url, headers=hdr)
+	# page = urllib2.urlopen(req)
+	# content = page.read()
+
+	# resource = urllib.request.urlopen(url)
+	# output = open(,"wb")
+	# output.write(content)
+	# output.close()
+
+def getCountryAbbreviation(country):
+	output = open("Codes.json","r")
+	# output = json_normalize(output)
+	data = output.read()
+	data  = json.loads(data)
+	# print (data)
+	for i in data:
+		# print (i)
+		if i['country_name'] == country:
+			output.close()
+			return i['alpha_2']
+	output.close()
+	return None
