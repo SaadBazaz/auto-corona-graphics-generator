@@ -2,7 +2,7 @@
 A small editable Python script to automatically get COVID-19 stats and create Photoshop graphics
 
 ## Why?
-Python is a great and easy tool used increasingly by scientists and artists for scripting, yet Adobe (creator of Photoshop and Illustrator) have yet to support Python scripting.
+Python is a great and easy tool used increasingly by scientists and artists for scripting, however, Adobe (creator of Photoshop and Illustrator) have yet to support Python scripting.
 
 ### Credits: 
 - Python Photoshop Scripting: https://martechwithme.com/photoshop-scripting-with-python-on-windows/
