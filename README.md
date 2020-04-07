@@ -13,6 +13,7 @@ https://illustrator-scripting-guide.readthedocs.io/
 
 ### Sources:
 - For authentic COVID-19 stats: https://thecoronamap.com/
+- For Country Codes: https://geotargetly.com/geo-data/country-codes
 - For flags: https://www.countryflags.io/
 - For World Map: http://www.vectorworldmap.com/
 
