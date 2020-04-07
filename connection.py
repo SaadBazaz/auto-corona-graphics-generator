@@ -61,7 +61,7 @@ def getTopDate(all_dates_data):
 	return top_date
 
 def getAllCountryData(date):
-	all_countries_response = requests.get(url = BASE_URL + "/" + ALL_COUNTRIES + "/" + top_date) 	
+	all_countries_response = requests.get(url = BASE_URL + "/" + ALL_COUNTRIES + "/" + date) 	
 	# extracting data in json format 
 	return all_countries_response.json() 
 
@@ -71,6 +71,7 @@ def extractMaxRate(all_countries_data):
 	print ("---------------- Printing All Country Names ----------------")
 	for country in all_countries_data:
 		rate = country['dead']/country['confirmed']
+		print(country)
 		print (country['country_name'], "->", rate)
 		if  rate > max:
 			max = rate
@@ -79,6 +80,7 @@ def extractMaxRate(all_countries_data):
 
 	print ("\n\n")
 	print ("Max country: ", name, "=>", max)
+	return name, max
 
 def getCountryFlag(country):
 	abbrev = getCountryAbbreviation(country)
