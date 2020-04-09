@@ -5,12 +5,16 @@
 Python is a great and easy tool used increasingly by scientists and artists for scripting, however, Adobe (creator of Photoshop and Illustrator) have yet to support Python scripting.
 
 ### Credits: 
+#### Python/COM Scripting
 - Python Photoshop Scripting: https://martechwithme.com/photoshop-scripting-with-python-on-windows/
 - Pythoshop Python Library: https://pytoshop.readthedocs.io/
 - Amazing resource, but for Javascript, VBScript and Applescript. **But**, I've found that almost EVERYTHING in the Javascript section applies to Python if you capitalize the first letter. E.g. in js, it is fillColor, but in normal COM/Python, it would be FillColor: 
 https://illustrator-scripting-guide.readthedocs.io/
+
+#### General Scripting
 - Great help for general scripting, like KeySending: https://win32com.goermezer.de/microsoft/windows/controlling-applications-via-sendkeys.html
 - Mouse specific events for scripting: https://automatetheboringstuff.com/chapter18/
+- Adobe Illustrator official keyboard shortcuts: https://helpx.adobe.com/illustrator/using/default-keyboard-shortcuts.html
 
 ### Sources:
 - For authentic COVID-19 stats: https://thecoronamap.com/
