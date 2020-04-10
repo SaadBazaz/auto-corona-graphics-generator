@@ -16,6 +16,9 @@ https://illustrator-scripting-guide.readthedocs.io/
 - Mouse specific events for scripting: https://automatetheboringstuff.com/chapter18/
 - Adobe Illustrator official keyboard shortcuts: https://helpx.adobe.com/illustrator/using/default-keyboard-shortcuts.html
 
+#### Insta-Posting
+- Collaborator: @zaid13 
+
 ### Sources:
 - For authentic COVID-19 stats: https://thecoronamap.com/
 - For Country Codes: https://geotargetly.com/geo-data/country-codes
