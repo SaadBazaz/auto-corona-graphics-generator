@@ -117,9 +117,17 @@ def setColorOfCountry (color, countryName, layerRef):
             for territory in scattered_country.PathItems:
                 territory.FillColor = color
         except:
-            grouped_country = layerRef.GroupItems[countryName]
-            for territory in grouped_country.PathItems:
-                territory.FillColor = color
+            try:
+                grouped_country = layerRef.GroupItems[countryName]
+                for territory in grouped_country.PathItems:
+                    territory.FillColor = color
+            except:
+                # try:
+                text_country = layerRef.TextFrames[countryName]
+                print("TYPENAME IS ", text_country.Typename)
+                text_country.TextPath.FillColor = color
+                # except:
+                #     print("Couldn't find ", countryName, "anywhere!")
 
 ##Brute Set All
 def setColorOfAllCountries (color, layerRef):
@@ -134,6 +142,10 @@ def setColorOfAllCountries (color, layerRef):
     for grouped_country in layerRef.GroupItems:
         for territory in grouped_country.PathItems:
             territory.FillColor = color
+
+    for text_country in layerRef.TextFrames:
+        print("TYPENAME IS ", text_country.Typename)
+        text_country.TextPath.FillColor = color
 
 
 ##Save File

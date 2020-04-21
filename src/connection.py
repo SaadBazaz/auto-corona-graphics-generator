@@ -31,6 +31,7 @@ hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML,
 BASE_URL = "https://api.thecoronamap.com"
 ALL_COUNTRIES = "corona-stats"
 ALL_DATES = "get-dates"
+TOTAL_STATS = "total-stats"
       
 # api-endpoint (for country flags)
 BASE_URL_CF = "https://www.countryflags.io"
@@ -76,6 +77,13 @@ def getAllCountryData(date):
 	print("Received all country data from server.")
 	return all_countries_response.json() 
 
+def getTotalData(date):
+	print("Getting total stats corresponding to", date,"...")
+	all_countries_response = requests.get(url = BASE_URL + "/" + TOTAL_STATS + "/" + date) 	
+	# extracting data in json format 
+	print("Received total stats from server.")
+	return total_stats_response.json() 
+
 def extractMaxRate(all_countries_data, N = 1):
 	max = -1
 	name = ""
@@ -94,7 +102,27 @@ def extractMaxRate(all_countries_data, N = 1):
 	return name, max
 
 
-def extractMaxAttribute(all_countries_data, attribute, N=1):
+def extractMaxAttribute(all_countries_data, attribute, N=1, GreaterThan = None, cap=0):
+
+	cleaned_data = []
+	if cap != 0:
+		for i in all_countries_data:
+			if (i[attribute]>cap):
+				cleaned_data.append(i)
+		all_countries_data = cleaned_data
+
+	
+	if GreaterThan!=None:
+		returnThis = []
+		count = 0
+		for i in all_countries_data:
+			if (i[attribute] > GreaterThan):
+				count += 1
+				outp = str(count) + "."
+				print (outp, i['country_name'], "=>", i[attribute])
+				returnThis.append(i)
+		return returnThis
+
 
 	top_N = heapq.nlargest(N, all_countries_data, key=lambda i: i[attribute])
 	count = 0
@@ -104,6 +132,37 @@ def extractMaxAttribute(all_countries_data, attribute, N=1):
 		print (outp, i['country_name'], "=>", i[attribute])
 
 	return top_N
+
+
+def extractMinAttribute(all_countries_data, attribute, N=1, LessThan = None, cap=0):
+
+	cleaned_data = []
+	if cap != 0:
+		for i in all_countries_data:
+			if (i[attribute]<cap):
+				cleaned_data.append(i)
+		all_countries_data = cleaned_data
+
+	if LessThan!=None:
+		returnThis = []
+		count = 0
+		for i in all_countries_data:
+			if (i[attribute] < LessThan):
+				count += 1
+				outp = str(count) + "."
+				print (outp, i['country_name'], "=>", i[attribute])
+				returnThis.append(i)
+		return returnThis
+
+
+	bottom_N = heapq.nsmallest(N, all_countries_data, key=lambda i: i[attribute])
+	count = 0
+	for i in bottom_N:
+		count += 1
+		outp = str(count) + "."
+		print (outp, i['country_name'], "=>", i[attribute])
+
+	return bottom_N
 
 
 
