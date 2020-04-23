@@ -30,6 +30,10 @@ https://illustrator-scripting-guide.readthedocs.io/
 - Illustrator 2019 or higher
 - Python3
 
+## toDo:
+- More templates
+- Support for GIMP and Inkscape (Open source, lightweight and easily deployable on servers)
+
 I had to tweak the World Map a bit - I manually named all 195 layers with their corresponding country names. This is necessary for any script to recognize a country. So if you require a **World Map with *properly named* layers**, you've come to the right place. You won't find it anywhere else on the internet.
 
 > Am I the only one who names their layers?
