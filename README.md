@@ -1,5 +1,5 @@
 # auto-corona-graphics-generator
-🦠 A small editable Python script to automatically get COVID-19 stats and create beautiful Photoshop + Illustrator graphics
+🦠 A small editable Python script which automatically gets COVID-19 stats and creates powerful Photoshop + Illustrator graphics
 
 ## Why?
 Python is a great and easy tool used increasingly by scientists and artists for scripting, however, Adobe (creator of Photoshop and Illustrator) have yet to support Python scripting.
